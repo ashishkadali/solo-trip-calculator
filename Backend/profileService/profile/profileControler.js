@@ -106,7 +106,11 @@ module.exports.login= async(event) =>{
 }
 
 module.exports.update = async(event) =>{
-
+    console.log(event.body)
+    if(!conn){
+       conn = await connect()
+    }
+    
     const {name,email,password,confirmPassword} = JSON.parse(event.body);
 
     const findUser  = await Profile.find({email :email});
