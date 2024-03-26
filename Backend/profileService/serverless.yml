@@ -1,0 +1,33 @@
+service: profileService
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+plugins:
+  - serverless-offline
+
+functions:
+  register:
+    handler:  profile/profileControler.register
+    events:
+      - httpApi:
+          path: /register
+          method: POST
+ 
+  login:
+    handler: profile/profileControler.login
+    events:
+      - httpApi:
+          path: /login
+          method: POST  
+          
+  update:
+    handler: profile/profileControler.update
+    events:
+      - httpApi:
+          path: /update
+          method: POST  
+      # Invoke Lambda function every 2nd minute from Mon-Fri
+      # - schedule: cron(0/2 * ? * MON-FRI *)

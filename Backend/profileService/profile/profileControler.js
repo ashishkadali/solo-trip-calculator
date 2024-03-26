@@ -8,8 +8,7 @@ import  jwt  from 'jsonwebtoken';
 
 let conn = null;
 
-
-export const registerUser = async(event, context) =>{
+module.exports.register= async(event, context) =>{
     try {
 
         console.log(event.body)
@@ -17,7 +16,7 @@ export const registerUser = async(event, context) =>{
            conn = await connect()
         }
 
-        const {name,email,password,confirmPassword} = event.body;
+        const {name,email,password,confirmPassword} = JSON.parse(event.body);
 
         const findUser= await Profile.find({email : email});
 
@@ -69,12 +68,12 @@ export const registerUser = async(event, context) =>{
     }
 }
 
-export const Login = async(event) =>{
+module.exports.login= async(event) =>{
     if(!conn){
         conn = await connect()
      }
 
-     const {email,password} = event.body;
+     const {email,password} = JSON.parse(event.body);
 
      const findUser= await Profile.find({email : email});
 
@@ -104,4 +103,32 @@ export const Login = async(event) =>{
                 token : token
             })
         }
+}
+
+module.exports.update = async(event) =>{
+
+    const {name,email,password,confirmPassword} = JSON.parse(event.body);
+
+    const findUser  = await Profile.find({email :email});
+
+
+    if(!findUser){
+        return{
+            statusCode : 401,
+            body : JSON.stringify({
+                error : "user is not registerd"
+            })
+        }
+    }
+
+    const data =await  Profile.findOneAndUpdate({_id :  ObjectId(findUser._id)}, {name, password, confirmPassword})
+
+    const findUpdatedUser  = await Profile.find({email :email});
+    return({
+        statusCode : 200,
+        body: {
+            data : JSON.stringify(findUpdatedUser)
+        }
+    })
+
 }

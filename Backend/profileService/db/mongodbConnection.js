@@ -3,7 +3,7 @@ let conn = null;
 
 export const connect  = async() =>{
     if(conn == null){
-        conn = await mongoose.connect(process.env.DB_URL , {
+        conn = await mongoose.connect("mongodb+srv://ashishkadali7:6bZrmSzpxPgDuAhy@solotrip.feaaetp.mongodb.net/?retryWrites=true&w=majority&appName=soloTrip" , {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000

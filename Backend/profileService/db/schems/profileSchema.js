@@ -1,22 +1,3 @@
-// const { Entity, ObjectIdColumn, Column } = require("typeorm");
-
-// @Entity()
-// export class Profile {
-//     @ObjectIdColumn()
-//     _id:any;
-
-//     @Column()
-//     name:string;
-
-//     @Column()
-//     email:string;
-
-//     @Column()
-//     password:string;
-
-//     @Column()
-//     confirmPassword:string;
-// }
 
 const validator = require("validator");
 
