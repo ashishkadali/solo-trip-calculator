@@ -1,0 +1,14 @@
+.HomeList{
+    border: 0 solid slategray;
+    border-radius: "2px";
+}
+
+.Home{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../Images/Home.jpg');
+    background-repeat: round;
+
+}

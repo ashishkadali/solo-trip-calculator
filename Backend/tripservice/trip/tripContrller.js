@@ -77,8 +77,10 @@ module.exports.editTrip = async(event)=>{
  * 
  * @param {getAlltrip} event for get all details of particular trip by email and (seggigrate data for baisc visual) next
  */
-module.exports.getAlltrip = async(event)=>{
-    const { email } = JSON.parse(event.body);
+module.exports.getAlltrip = async(event,context)=>{
+    
+    const { email } = JSON.parse(context.body);
+
 
     const completeData = await tripDetails.find({email : email});
 

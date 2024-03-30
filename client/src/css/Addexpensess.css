@@ -1,0 +1,22 @@
+.name {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .piechart, .expensesslist {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .expensesslist > div {
+    margin: 20px;
+    width: 300px; /* Adjust the width as needed */
+  }
+  
+  /* Adjust the chart's size to fit its container */
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
