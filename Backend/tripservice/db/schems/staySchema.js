@@ -21,4 +21,5 @@ const staySchema = new mongoose.Schema({
 }, { timestamps: true})
  
 
-module.exports =mongoose.model("staySchema", staySchema);
+const StaySchema =mongoose.model("staySchema", staySchema);
+module.exports = {StaySchema}

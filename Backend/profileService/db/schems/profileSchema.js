@@ -18,7 +18,6 @@ const Profile = new mongoose.Schema({
     password :{
         type: String,
         require: [true,"please enter password"],
-        select: false
     },
     confirmPassword :{
         type: String,
@@ -28,9 +27,11 @@ const Profile = new mongoose.Schema({
 
 }, { timestamps: true})
  
-Profile.pre('save',async(next)=>{
-    this.password =  await bcrypt.hash(this.password,10);
-    this.confirmPassword = await bcrypt.hash(this.confirmPassword,10);
+Profile.pre('save', async function(next) {
+    this.password =  bcrypt.hashSync(this.password, 10);
+    this.confirmPassword =  bcrypt.hashSync(this.confirmPassword, 10);
     next();
-})
-module.exports =mongoose.model("Profile", Profile);
+});
+
+const profile = mongoose.model("Profile", Profile);
+module.exports = {profile}

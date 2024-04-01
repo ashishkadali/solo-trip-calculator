@@ -1,19 +1,19 @@
 service: tripservice
 frameworkVersion: '3'
 
-provider:
-  name: aws
-  runtime: nodejs18.x
-  
 plugins:
-  - serverless-offline
   - serverless-middleware
+  - serverless-offline
 
-	
 custom:
   middleware:
     pre:
       - check.authorize
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  
 
 
 functions:
@@ -22,7 +22,10 @@ functions:
     events:
       - httpApi:
           path: /createTrip
-          method: POST
+          method: POST    
+    middleware:
+      pre:
+        - check.authorize 
   
   editTrip:
     handler: trip/tripContrller.editTrip

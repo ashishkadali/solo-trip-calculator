@@ -6,7 +6,6 @@ const tripDetails = new mongoose.Schema({
     email:{
         type: String,
         require: true,
-        unique: true,
     },
     tripname:{
         type: String,
@@ -37,5 +36,5 @@ const tripDetails = new mongoose.Schema({
     },
 }, { timestamps: true})
  
-
-module.exports =mongoose.model("tripDetails", tripDetails);
+const TripDetails =  mongoose.model("tripDetails", tripDetails);
+module.exports ={TripDetails};
