@@ -46,13 +46,13 @@ export default function Addexpensess({props}) {
 
     console.log(expensesslist)
 
-    useEffect(()=>{
-        getparticularserviceData(props.id).then((res)=>{
-            setoverallExpensess(res)
-        }).catch((error)=>{
-            console.log("api failed")
-        })
-    },[])
+    // useEffect(()=>{
+    //     getparticularserviceData(props.id).then((res)=>{
+    //         setoverallExpensess(res)
+    //     }).catch((error)=>{
+    //         console.log()
+    //     })
+    // },[])
 
     return (
         <div>
