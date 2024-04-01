@@ -7,11 +7,48 @@ provider:
   
 plugins:
   - serverless-offline
+  - serverless-middleware
+
+	
+custom:
+  middleware:
+    pre:
+      - check.authorize
+
 
 functions:
-  api:
-    handler: index.handler
+  createTrip:
+    handler: trip/tripContrller.createTrip
     events:
       - httpApi:
-          path: /
+          path: /createTrip
+          method: POST
+  
+  editTrip:
+    handler: trip/tripContrller.editTrip
+    events:
+      - httpApi:
+          path: /editTrip
+          method: POST
+
+  getAlltrip:
+    handler: trip/tripContrller.getAlltrip
+    events:
+      - httpApi:
+          path: /getAlltrip
           method: get
+
+  addExpenses:
+    handler: trip/tripContrller.addExpenses
+    events:
+      - httpApi:
+          path: /addExpenses
+          method: POST
+
+  gettripExpensesBycatogry:
+    handler: trip/tripContrller.gettripExpensesBycatogry
+    events:
+      - httpApi:
+          path: /gettripExpensesBycatogry
+          method: POST
+  

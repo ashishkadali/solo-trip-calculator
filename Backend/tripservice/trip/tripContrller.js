@@ -10,7 +10,9 @@ let conn = null;
  * @param {createTrip} event for creating tripname, from to destination, budget, mode of transport, days.
  */
 
-module.exports.createTrip = async(event)=>{
+module.exports.createTrip = async(event,context)=>{
+
+    console.log(context);
 
     if(!conn){
        conn = await connect()
@@ -44,7 +46,7 @@ module.exports.createTrip = async(event)=>{
  * 
  * @param {editTrip} event for creating trip name, from to destination, budget, mode of transport, days
  */
-module.exports.editTrip = async(event)=>{
+module.exports.editTrip = async(event,context)=>{
 
     if(!conn){
         conn = await connect()
@@ -130,7 +132,12 @@ module.exports.addExpenses = async(event)=>{
  * 
  * @param {gettripExpensesBycatogry} event  for getting data based on category and created tripObjectid
  */
-module.exports.gettripExpensesBycatogry = async(event)=>{
+module.exports.  addExpenses:
+handler: trip/tripContrller.addExpenses
+events:
+  - httpApi:
+      path: /addExpenses
+      method: POST = async(event)=>{
 
     if(!conn){
         conn = await connect()
