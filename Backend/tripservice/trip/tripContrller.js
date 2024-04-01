@@ -13,8 +13,7 @@ let conn = null;
 async function createTrip (event,context){
 
     try {
-
-        console.log("***");
+        
         await connect();
 
         const {tripname , from , destination, budget, transport, Days,email } = JSON.parse(event.body);
@@ -62,15 +61,14 @@ exports.createTrip = createTrip
 async function editTrip (event,context){
 
     try {
-
-    if(!conn){
-        conn = await connect()
-     } 
+        
+    await connect()
+  
 
     const {tripname , from , destination, budget, transport, Days, id, email } = JSON.parse(event.body);
-    const findData  = await TripDetails.find({_id : ObjectId(id)});
+    const findData  = await TripDetails.findOne({_id : ObjectId(id)});
 
-    if(!findData){
+    if(findData.length ==0 ){
         return{
             statusCode : 401,
             body : JSON.stringify({
@@ -79,7 +77,7 @@ async function editTrip (event,context){
         }
     }
 
-    await tripDetails.findByIdAndUpdate({_id : ObjectId(id)},{tripname , from , destination, budget, transport, Days ,email});
+    await TripDetails.findByIdAndUpdate({_id : ObjectId(id)},{tripname , from , destination, budget, transport, Days ,email});
 
     const completeData = await TripDetails.find({email : email});
 
@@ -101,7 +99,7 @@ async function editTrip (event,context){
 
     
 }
-
+exports.editTrip =editTrip;
 /**
  * 
  * @param {getAlltrip} event for get all details of particular trip by email and (seggigrate data for baisc visual) next
@@ -109,9 +107,9 @@ async function editTrip (event,context){
 async function getAlltrip (event,context){
 
     try {
+        console.log(context);
 
         const { email } = JSON.parse(context.body);
-
 
         const completeData = await TripDetails.find({email : email});
     
@@ -133,6 +131,8 @@ async function getAlltrip (event,context){
     
 
 }
+
+exports.getAlltrip =getAlltrip;
 
 /**
  * 
@@ -159,7 +159,9 @@ async function addExpenses (event){
     
         const newData =  new StaySchema({
             email,
-            id, category, price
+            id,
+            category,
+            price
         });
     
     
