@@ -36,9 +36,20 @@ export const HomeApi = () => {
 export const createNewTripApi = (body) =>{
     return new Promise(async (resolve,reject)=>{
         await axiosInstance.post('api',body).then((res)=>{
-            resolve.apply(res)
-        }).then((error)=>{
+            resolve(res)
+        }).catch((error)=>{
             reject(error);
+        })
+    })
+}
+
+
+export const getparticularserviceData = (body) =>{
+    return new Promise(async(resolve,reject)=>{
+        await axiosInstance.post("api",body).then((res)=>{
+            resolve(res);
+        }).catch((error)=>{
+            reject(error)
         })
     })
 }

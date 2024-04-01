@@ -1,77 +1,86 @@
 import React, { useEffect, useState } from 'react'
-import {Pie,Doughnut} from 'react-chartjs-2';
+import { Pie, Doughnut,Bar } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto'; // this import is mandatory to show chart
 import '../css/Addexpensess.css';
+import { getparticularserviceData } from '../API/Postapi';
 
-export default function Addexpensess() {
+export default function Addexpensess({props}) {
 
-    const [expensesslist,setExpensessList] =useState([
-        { category: "stay", spent: 100, total:200 },
-        { category: "fuel", spent: 50 ,total:200 },
-        { category: "food", spent: 80 , total:200 },
-        { category: "shopping", spent: 30, total:200 },
-        { category: "other", spent: 20 , total:200}
+    const [expensesslist, setExpensessList] = useState([
+        { category: "stay" },
+        { category: "fuel" },
+        { category: "food" },
+        { category: "shopping" },
+        { category: "other" }
     ]);
 
-    const [overallExpensess, setoverallExpensess] = useState( {
-        "stay": 100,
-        "fuel": 50,
-        "shopping": 30,
-        "other": 20,
-        "food": 80,
-        "total": 300 
-      })
+    const [overallExpensess, setoverallExpensess] = useState([
+        {
+            id:0,
+            category: "stay",
+            spent : 30
+        }
+        ,
+        {
+            id:1,
+            category: "fuel",
+            spent: 50,
+        },
+        {
+            id:2,
+            category: "shopping",
+            spent: 30,
+        },
+        {
+            id:3,
+            category: "other",
+            spent: 20
+        },
+        {
+            id:4,
+            category: "food",
+            spent : 80,
+        }, 
 
-return(
-    <div>
-        <div className="name">
-            <h4>Add Expensess</h4>
-        </div>
-        <div className="piechart">
-        <Doughnut
-                data={{
-                    labels:["stay","fuel","shopping","other","food","total"],
-                    datasets:[
-{                        data: Object.values(overallExpensess)
-}                    ]
-                }}
+    ]);
 
-        />
+    console.log(expensesslist)
 
-        </div>
-        <div className="expensesslist">
-            {
-                expensesslist.length > 0 && 
-                <>
-               {
-                   expensesslist.map((value,index,list)=> {
-                    <div>
-                        <>
-                        {value.category}
-                        </>
-                        <>
-                            <Pie
-                            data={{
-                                labels:["spent","total"],
-                                datasets:[
-                                    {
-                                        label: `spent on ${value.category}`,
-                                        data: [value.spent,value.total],
-                                        backgroundColor: [
-                                            'rgb(255, 205, 86)',
-                                            'rgb(255, 99, 132)',
-                                        ],
-                                      
-                                    }
-                                ]
-                            }}
-                            />
-                        </>
+    useEffect(()=>{
+        getparticularserviceData(props.id).then((res)=>{
+            setoverallExpensess(res)
+        }).catch((error)=>{
+            console.log("api failed")
+        })
+    },[])
+
+    return (
+        <div>
+            <div className="name">
+                <h4>Add Expensess</h4>
+            </div>
+            <div className="piechart">
+
+           <Bar 
+            data={{
+                labels : overallExpensess.map((data)=> data.category),
+                datasets : [{
+                    label : "spent expensess",
+                    data: overallExpensess.map((data)=> data.spent)
+                }]
+            }}
+           />
+
+            </div>
+            <div className="expensesslist">
+                { expensesslist.length >0 && expensesslist.map((value, index) => (
+                    <div className="expense-item" key={index}>
+                        <div style={{textAlign:'center'}}>{value.category}</div>
+                        <button>+</button>
                     </div>
-                   })
-                }
-                </>
-            }
+                ))}
+            </div>
+
         </div>
-    </div>
-)
+    )
 }

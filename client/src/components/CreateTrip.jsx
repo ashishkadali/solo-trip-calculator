@@ -32,7 +32,6 @@ const CreateTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if(formData.)
     // You can perform any further actions here, like sending the data to a server
     console.log(formData);
     createNewTripApi(formData).then((res)=>{

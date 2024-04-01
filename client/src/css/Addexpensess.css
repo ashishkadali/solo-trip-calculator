@@ -1,22 +1,58 @@
 .name {
     text-align: center;
     margin-bottom: 20px;
+    font-family: "Times New Roman", Times, serif;
   }
-  
-  .piechart, .expensesslist {
+
+.piechart{
+  width: 80%;
+    margin: 0 auto;
+}
+
+  .expensesslist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+  }
+
+  .expense-item {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content:space-evenly;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
   }
-  
-  .expensesslist > div {
-    margin: 20px;
-    width: 300px; /* Adjust the width as needed */
+
+  .expense-item button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
   }
-  
-  /* Adjust the chart's size to fit its container */
-  canvas {
-    max-width: 100%;
-    height: auto;
+
+  .expense-item button:hover {
+      background-color: #0056b3;
   }
-  
+
+@media (max-width: 768px) {
+  .piechart  {
+      width: 100%; /* Adjust width for smaller screens */
+      padding: 0 10px; /* Add padding for better readability */
+  }
+  .expensesslist {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+}
+
+@media (max-width: 1024px) {
+  .piechart {
+      width: 90%; /* Adjust width for tablets */
+  }
+}
